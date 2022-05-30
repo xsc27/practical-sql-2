@@ -111,7 +111,7 @@ WHERE emp_id IN (
     SELECT id
     FROM retirees)
 ORDER BY emp_id;
-    
+
 -- Listing 13-9: Using a correlated subquery with WHERE EXISTS
 
 SELECT first_name, last_name
@@ -210,7 +210,7 @@ WITH
 SELECT counties.st,
        pop_est_2018,
        establishment_count,
-       round((establishments.establishment_count / 
+       round((establishments.establishment_count /
               counties.pop_est_2018::numeric(10,1)) * 1000, 1)
            AS estabs_per_thousand
 FROM counties JOIN establishments
@@ -252,7 +252,7 @@ FROM 'C:\YourDirectory\ice_cream_survey.csv'
 WITH (FORMAT CSV, HEADER);
 
 -- view the data
-SELECT * 
+SELECT *
 FROM ice_cream_survey
 ORDER BY response_id
 LIMIT 5;

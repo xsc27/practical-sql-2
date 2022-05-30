@@ -1,4 +1,4 @@
-﻿state_fips,county_fips,county,state,naics_2017,naics_2017_label,year,establishments
+state_fips,county_fips,county,state,naics_2017,naics_2017_label,year,establishments
 01,001,Autauga County,Alabama,72,Accommodation and food services,2018,102
 01,003,Baldwin County,Alabama,72,Accommodation and food services,2018,575
 01,005,Barbour County,Alabama,72,Accommodation and food services,2018,48

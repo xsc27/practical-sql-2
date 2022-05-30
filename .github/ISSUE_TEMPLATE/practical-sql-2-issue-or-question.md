@@ -35,5 +35,3 @@ Please answer all of these as they're essential for troubleshooting.
 
 
 **Please paste the code and error message here. It's OK to alter identifying info such as a folder name**
-
-

@@ -63,7 +63,7 @@ CREATE MATERIALIZED VIEW nevada_counties_pop_2019 AS
     FROM us_counties_pop_est_2019
     WHERE state_name = 'Nevada';
 
--- Listing 17-6: Refreshing a materialized view 
+-- Listing 17-6: Refreshing a materialized view
 
 REFRESH MATERIALIZED VIEW nevada_counties_pop_2019;
 
@@ -249,7 +249,7 @@ CREATE TABLE grades_history (
     old_grade text NOT NULL,
     new_grade text NOT NULL,
 PRIMARY KEY (student_id, course_id, change_time)
-);  
+);
 
 -- Listing 17-20: Creating the record_if_grade_changed() function
 
@@ -335,7 +335,7 @@ BEGIN
        WHEN NEW.max_temp >= 20 AND NEW.max_temp < 33 THEN
            NEW.max_temp_group := 'Frigid';
        WHEN NEW.max_temp < 20 THEN
-           NEW.max_temp_group := 'Inhumane';    
+           NEW.max_temp_group := 'Inhumane';
        ELSE NEW.max_temp_group := 'No reading';
     END CASE;
     RETURN NEW;

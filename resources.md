@@ -8,7 +8,7 @@ The Appendix of Practical SQL, 2nd Edition contains a list of resources to help 
 
 ### PostgreSQL Development Environments
 
-Throughout the book, we’ve used the graphical user interface [pgAdmin](https://www.pgadmin.org) to connect to PostgreSQL, run queries, and view database objects. Although pgAdmin is free, open source, and popular, it’s not your only choice for working with PostgreSQL. The wiki entry “PostgreSQL Clients” at [https://wiki.postgresql.org/wiki/PostgreSQL_Clients](https://wiki.postgresql.org/wiki/PostgreSQL_Clients) catalogs many alternatives. 
+Throughout the book, we’ve used the graphical user interface [pgAdmin](https://www.pgadmin.org) to connect to PostgreSQL, run queries, and view database objects. Although pgAdmin is free, open source, and popular, it’s not your only choice for working with PostgreSQL. The wiki entry “PostgreSQL Clients” at [https://wiki.postgresql.org/wiki/PostgreSQL_Clients](https://wiki.postgresql.org/wiki/PostgreSQL_Clients) catalogs many alternatives.
 
 The following list shows several tools I’ve tried, including free and paid options. The free tools work well for general analysis work. If you wade deeper into database development, you might want to upgrade to the paid options, which typically offer advanced features and support:
 
@@ -73,5 +73,3 @@ Additionally, I recommend paying attention to developer notes for any of the Pos
 You can find documentation for each version of PostgreSQL along with an FAQ and wiki on the [main page](https://www.postgresql.org/docs/). It’s worth reading through various sections of the manual as you learn more about a particular topic, such as indexes, or search for all the options that come with functions. In particular, the Preface, Tutorial, and SQL Language sections cover much of the material presented in the book’s chapters.
 
 Other good resources for documentation are the [Postgres Guide](http://postgresguide.com/) and [Stack Overflow](https://stackoverflow.com/questions/tagged/postgresql/), where you can find questions and answers posted by developers. You can also check out the Q&A site for [PostGIS](https://gis.stackexchange.com/questions/tagged/postgis/).
-
-

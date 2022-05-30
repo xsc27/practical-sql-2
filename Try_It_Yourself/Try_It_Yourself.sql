@@ -244,7 +244,7 @@ SELECT 3.14 * 5 ^ 2;
 SELECT 3.14 * (5 ^ 2);
 
 
--- 2. Using the 2019 Census county estimates data, calculate a ratio of births to 
+-- 2. Using the 2019 Census county estimates data, calculate a ratio of births to
 -- deaths for each county in New York state. Which region of the state generally
 -- saw a higher ratio of births to deaths in 2019?
 
@@ -309,10 +309,10 @@ GROUP BY state_name;
 -- an internet search to find out what happened. (Hint: The decrease is related
 -- to a particular type of facility.)
 
--- Answer: 
+-- Answer:
 
 -- Concho County, Texas, lost 33 percent of its population from 2010 to
--- 2019, the result of the closure of Eden Detention Center. 
+-- 2019, the result of the closure of Eden Detention Center.
 -- https://www.texasstandard.org/stories/after-edens-prison-closes-what-comes-next-for-this-small-texas-town/
 
 -- Simply use ASC in the ORDER BY clause to re-order the results, like this:
@@ -322,7 +322,7 @@ SELECT c2019.county_name,
        c2010.estimates_base_2010 AS pop_2010,
        c2019.pop_est_2019 - c2010.estimates_base_2010 AS raw_change,
        round( (c2019.pop_est_2019::numeric - c2010.estimates_base_2010)
-           / c2010.estimates_base_2010 * 100, 1 ) AS pct_change       
+           / c2010.estimates_base_2010 * 100, 1 ) AS pct_change
 FROM us_counties_pop_est_2019 AS c2019
     JOIN us_counties_pop_est_2010 AS c2010
 ON c2019.state_fips = c2010.state_fips
@@ -330,7 +330,7 @@ ON c2019.state_fips = c2010.state_fips
 ORDER BY pct_change ASC;
 
 
--- 2. Apply the concepts you learned about UNION to create query 
+-- 2. Apply the concepts you learned about UNION to create query
 -- results that merge queries of the census county population estimates
 -- for 2010 and 2019. Your results should include a column called year
 -- that specifies the year of the estimate for each row in the results.
@@ -344,12 +344,12 @@ SELECT '2010' AS year,
        state_name,
        estimates_base_2010 AS estimate
 FROM us_counties_pop_est_2010
-UNION 
+UNION
 SELECT '2019' AS year,
        state_fips,
        county_fips,
        county_name,
-       state_name,       
+       state_name,
        pop_est_2019 AS estimate
 FROM us_counties_pop_est_2019
 ORDER BY state_fips, county_fips, year;
@@ -368,7 +368,7 @@ FROM us_counties_pop_est_2019 AS c2019
     JOIN us_counties_pop_est_2010 AS c2010
 ON c2019.state_fips = c2010.state_fips
     AND c2019.county_fips = c2010.county_fips;
-    
+
 
 ----------------------------------------------------------------------------
 -- Chapter 8: Table Design That Works for You
@@ -397,7 +397,7 @@ CREATE TABLE songs (
 
 -- The albums table includes information specific to the overall collection
 -- of songs on the disc. The songs table catalogs each track on the album.
--- Each song has a title and a column for its composers, who might be 
+-- Each song has a title and a column for its composers, who might be
 -- different than the album artist.
 
 -- Use the tables to answer these questions:
@@ -468,11 +468,11 @@ CREATE TABLE songs (
 -- Chapter 9: Extracting Information by Grouping and Summarizing
 ----------------------------------------------------------------------------
 
--- 1. We saw that library visits have declined recently in most places. But 
+-- 1. We saw that library visits have declined recently in most places. But
 -- what is the pattern in library employment? All three library survey tables
 -- contain the column totstaff, which is the number of paid full-time equivalent
--- employees. Modify the code in Listings 9-13 and 9-14 to calculate the 
--- percent change in the sum of the column over time, examining all states as 
+-- employees. Modify the code in Listings 9-13 and 9-14 to calculate the
+-- percent change in the sum of the column over time, examining all states as
 -- well as states with the most visitors. Watch out for negative values!
 
 -- Answer (all states):
@@ -527,7 +527,7 @@ ORDER BY chg_2018_17 DESC;
 -- Answer:
 
 -- a) sum() visits by region.
-    
+
 SELECT pls18.obereg,
        sum(pls18.visits) AS visits_2018,
        sum(pls17.visits) AS visits_2017,
@@ -591,8 +591,8 @@ ORDER BY chg_2018_17 DESC;
 
 -- Answer: a FULL OUTER JOIN will show all rows in both tables.
 
-SELECT pls18.libname, pls18.city, pls18.stabr, pls18.statstru, 
-       pls17.libname, pls17.city, pls17.stabr, pls17.statstru, 
+SELECT pls18.libname, pls18.city, pls18.stabr, pls18.statstru,
+       pls17.libname, pls17.city, pls17.stabr, pls17.statstru,
        pls16.libname, pls16.city, pls16.stabr, pls16.statstru
 FROM pls_fy2018_libraries pls18
        FULL OUTER JOIN pls_fy2017_libraries pls17 ON pls18.fscskey = pls17.fscskey
@@ -607,7 +607,7 @@ WHERE pls16.fscskey IS NULL OR pls17.fscskey IS NULL;
 --------------------------------------------------------------
 
 -- In this exercise, you’ll turn the meat_poultry_egg_establishments table
--- into useful information. You need to answer two questions: How many 
+-- into useful information. You need to answer two questions: How many
 -- of the companies in the table process meat, and how many process poultry?
 
 -- Your tasks are as follows:
@@ -686,18 +686,18 @@ FROM acs_2014_2018_stats;
 
 
 -- 2. Using the exports data, create a 12-month rolling sum using the values
--- in the column soybeans_export_value and the query pattern from 
--- Listing 11-8. Copy and paste the results from the pgAdmin output 
--- pane and graph the values using Excel. What trend do you see?  
+-- in the column soybeans_export_value and the query pattern from
+-- Listing 11-8. Copy and paste the results from the pgAdmin output
+-- pane and graph the values using Excel. What trend do you see?
 
 -- Answer: Soybean exports rose considerably during the late 2000s
--- and dropped off considerably starting in 2018 following the start of the 
+-- and dropped off considerably starting in 2018 following the start of the
 -- U.S. trade war with China.
 
 SELECT year, month, soybeans_export_value,
-    round(   
-       sum(soybeans_export_value) 
-            OVER(ORDER BY year, month 
+    round(
+       sum(soybeans_export_value)
+            OVER(ORDER BY year, month
                  ROWS BETWEEN 11 PRECEDING AND CURRENT ROW), 0)
        AS twelve_month_avg
 FROM us_exports
@@ -1013,7 +1013,7 @@ ORDER BY census.statefp, census.name;
 
 -- 4. The nyc_yellow_taxi_trips table you created in Chapter 12 contains
 -- the longitude and latitude where each trip began and ended. Use PostGIS
--- functions to turn the dropoff coordinates into a geometry type and 
+-- functions to turn the dropoff coordinates into a geometry type and
 -- count the state/county pairs where each drop-off occurred. As with the
 -- previous exercise, you’ll need to join to the us_counties_2019_shp table
 -- and use its geom column for the spatial join.
@@ -1037,9 +1037,9 @@ ORDER BY count(*) DESC;
 -- Chapter 16: Working with JSON Data
 ----------------------------------------------------------------------------
 
--- 1. The earthquakes JSON has a key tsunami that’s set to a value of 1 for 
--- large earthquakes in oceanic regions (though it doesn’t mean a tsunami 
--- actually happened). Using either path or element extraction operators, 
+-- 1. The earthquakes JSON has a key tsunami that’s set to a value of 1 for
+-- large earthquakes in oceanic regions (though it doesn’t mean a tsunami
+-- actually happened). Using either path or element extraction operators,
 -- find earthquakes with a tsunami value of 1 and include their location, time
 -- and magnitude in your results.
 
@@ -1073,8 +1073,8 @@ CREATE TABLE earthquakes_from_json (
 );
 
 -- Using field and path extraction operators, write an INSERT statement
--- to fill the table with the correct values for each earthquake. Refer 
--- to the full sample earthquake JSON in your Chapter_16.sql file for any 
+-- to fill the table with the correct values for each earthquake. Refer
+-- to the full sample earthquake JSON in your Chapter_16.sql file for any
 -- key names and paths you need.
 
 -- Answer:
@@ -1100,7 +1100,7 @@ FROM earthquakes;
 SELECT * FROM earthquakes_from_json;
 
 
--- 3. Bonus (difficult) question: Try writing a query to generate the 
+-- 3. Bonus (difficult) question: Try writing a query to generate the
 -- following JSON using the data in the teachers and teachers_lab_access
 -- tables from Chapter 13:
 {
@@ -1115,11 +1115,11 @@ SELECT * FROM earthquakes_from_json;
 		"access_time": "2022-12-07T10:02:00-05:00"
 	}]
 }
--- It’s helpful to remember that the teachers table has a one-to-many relationship 
--- with teachers_lab_access; the first three keys must come from teachers, and the 
--- JSON objects in the array of lab_access will come from teachers_lab_access. 
--- Hint: you’ll need to use a subquery in your SELECT list and a function called 
--- json_agg() to create the lab_access array. 
+-- It’s helpful to remember that the teachers table has a one-to-many relationship
+-- with teachers_lab_access; the first three keys must come from teachers, and the
+-- JSON objects in the array of lab_access will come from teachers_lab_access.
+-- Hint: you’ll need to use a subquery in your SELECT list and a function called
+-- json_agg() to create the lab_access array.
 
 -- Answer:
 
@@ -1137,20 +1137,20 @@ FROM (
                 ORDER BY access_time DESC
             ) AS la
         ) AS lab_access
-    FROM teachers 
+    FROM teachers
     WHERE id = 6)
 AS teachers_labs;
 
 -- What's happening here? Structurally, we have a series of nested subqueries.
--- We use the first subquery to retrieve the id, first_name, and last_name columns from 
--- the teachers table. In that subquery's SELECT list, we place another subquery that 
--- retrieves the lab_name and access_time from the teachers_lab_access. 
+-- We use the first subquery to retrieve the id, first_name, and last_name columns from
+-- the teachers table. In that subquery's SELECT list, we place another subquery that
+-- retrieves the lab_name and access_time from the teachers_lab_access.
 
 -- What makes this query tricky is that we need to use an inner subquery to generate the
 -- lab access objects and use the json_agg function to aggregate the results of those rows
 -- into an array.
 
--- When writing a query such as this, it's helpful to work in chunks. Start with the 
+-- When writing a query such as this, it's helpful to work in chunks. Start with the
 -- outermost query and add the subqueries one by one, testing as you go.
 
 ----------------------------------------------------------------------------
@@ -1158,7 +1158,7 @@ AS teachers_labs;
 ----------------------------------------------------------------------------
 
 -- 1. Create a materialized view that displays the number of New York City
--- taxi trips per hour. Use the taxi data from Chapter 12 and the query in 
+-- taxi trips per hour. Use the taxi data from Chapter 12 and the query in
 -- Listing 12-8. How do you refresh the view if you need to?
 
 -- Answer:
@@ -1201,10 +1201,10 @@ $$ LANGUAGE plpgsql;
 SELECT rate_per_thousand(50, 11000, 2);
 
 -- 3. In Chapter 10, you worked with the meat_poultry_egg_establishments table that
--- listed food processing facilities. Write a trigger that automatically adds an 
--- inspection deadline timestamp six months in the future whenever you insert a new 
+-- listed food processing facilities. Write a trigger that automatically adds an
+-- inspection deadline timestamp six months in the future whenever you insert a new
 -- facility into the table. Use the inspection_deadline column added in Listing 10-19.
--- You should be able to describe the steps needed to implement a trigger and how 
+-- You should be able to describe the steps needed to implement a trigger and how
 -- the steps relate to each other.
 
 -- Answer:
@@ -1237,5 +1237,3 @@ VALUES ('test123', 'testcompany');
 
 SELECT * FROM meat_poultry_egg_establishments
 WHERE company = 'testcompany';
-
-

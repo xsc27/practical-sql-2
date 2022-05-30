@@ -22,7 +22,7 @@ CREATE TABLE us_counties_pop_est_2019 (
     state_fips text,                         -- State FIPS code
     county_fips text,                        -- County FIPS code
     region smallint,                         -- Region
-    state_name text,                         -- State name	
+    state_name text,                         -- State name
     county_name text,                        -- County name
     area_land bigint,                        -- Area (Land) in square meters
     area_water bigint,                       -- Area (Water) in square meters
@@ -35,7 +35,7 @@ CREATE TABLE us_counties_pop_est_2019 (
     international_migr_2019 integer,         -- Net international migration from 2018-07-01 to 2019-06-30
     domestic_migr_2019 integer,              -- Net domestic migration from 2018-07-01 to 2019-06-30
     residual_2019 integer,                   -- Residual for 2018-07-01 to 2019-06-30
-    CONSTRAINT counties_2019_key PRIMARY KEY (state_fips, county_fips)	
+    CONSTRAINT counties_2019_key PRIMARY KEY (state_fips, county_fips)
 );
 
 SELECT * FROM us_counties_pop_est_2019;
@@ -103,7 +103,7 @@ SELECT * FROM supervisor_salaries;
 
 DELETE FROM supervisor_salaries;
 
-CREATE TEMPORARY TABLE supervisor_salaries_temp 
+CREATE TEMPORARY TABLE supervisor_salaries_temp
     (LIKE supervisor_salaries INCLUDING ALL);
 
 COPY supervisor_salaries_temp (town, supervisor, salary)
@@ -129,7 +129,7 @@ WITH (FORMAT CSV, HEADER, DELIMITER '|');
 
 -- Listing 5-9: Exporting selected columns from a table with COPY
 
-COPY us_counties_pop_est_2019 
+COPY us_counties_pop_est_2019
     (county_name, internal_point_lat, internal_point_lon)
 TO 'C:\YourDirectory\us_counties_latlon_export.txt'
 WITH (FORMAT CSV, HEADER, DELIMITER '|');

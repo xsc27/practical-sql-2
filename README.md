@@ -4,11 +4,11 @@
 [Practical SQL, 2nd Edition](https://nostarch.com/practical-sql-2nd-edition/) is a beginner-friendly guide to the database programming language SQL. Author [Anthony DeBarros](https://www.anthonydebarros.com) starts with beginner SQL concepts such as queries, data types, and basic math and aggregation, and then works through intermediate and advanced topics including statistics, cleaning data, GIS, and automating tasks. Along the way, you'll use real-world data from the U.S. Census and other government agencies and learn the fundamentals of good database design. This is a book not only about SQL but about best practices for using it for thorough, accurate data analysis.
 
 ## A Note About Editions
-If you're reading the first edition of the book, published in 2018, please [use the code and data in the first edition repository](https://github.com/anthonydb/practical-sql/). If the cover of your copy does not say, "2nd Edition," then you're using the first edition. 
+If you're reading the first edition of the book, published in 2018, please [use the code and data in the first edition repository](https://github.com/anthonydb/practical-sql/). If the cover of your copy does not say, "2nd Edition," then you're using the first edition.
 
 ## Who Is This Book For?
 
-Practical SQL is ideal for beginners as well as those who know some SQL and want to go deeper. 
+Practical SQL is ideal for beginners as well as those who know some SQL and want to go deeper.
 
 ## Which Database Does The Book Use?
 
@@ -75,4 +75,4 @@ Practical SQL, 2nd Edition is [available in PDF, .mobi, .epub, and classic print
 
 # How Can I Get Help?
 
-Questions? Please open an issue in this repository by navigating to `Issues` and clicking `New Issue`. Fill out the form, and I will answer usually within 1 to 2 business days. For other types of inquiries, please email [practicalsqlbook@gmail.com](mailto:practicalsqlbook@gmail.com). 
+Questions? Please open an issue in this repository by navigating to `Issues` and clicking `New Issue`. Fill out the form, and I will answer usually within 1 to 2 business days. For other types of inquiries, please email [practicalsqlbook@gmail.com](mailto:practicalsqlbook@gmail.com).

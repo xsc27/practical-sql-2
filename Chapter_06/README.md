@@ -6,6 +6,3 @@
 ### Chapter 6: Basic Math and Stats with SQL
 
 Covers arithmetic operations and introduces aggregate functions for finding sums, averages, and medians.
-
-
-

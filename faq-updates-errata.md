@@ -17,7 +17,7 @@ The location of the pgAdmin dialog to add a server has changed. Now, in the obje
 
 **Page 15, Figure 1-5: pgAdmin Query Tool**
 
-Version 6.9 of pgAdmin, released in May 2022, introduced a redesigned Query Tool Layout. General  functionality is the same, but if you are using version 6.9 or later, you will see that some menu icons shown in the book at the top of the window are now placed atop the results grid. 
+Version 6.9 of pgAdmin, released in May 2022, introduced a redesigned Query Tool Layout. General  functionality is the same, but if you are using version 6.9 or later, you will see that some menu icons shown in the book at the top of the window are now placed atop the results grid.
 
 ### Chapter 2: Creating Your First Database and Table
 
@@ -93,6 +93,3 @@ None yet
 ### Chapter 19: Maintaining Your Database
 
 None yet
-
-
-

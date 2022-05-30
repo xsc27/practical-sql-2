@@ -170,11 +170,11 @@ ORDER BY crime_id;
 -- Listing 14-12: Updating the crime_reports date_1 column
 
 UPDATE crime_reports
-SET date_1 = 
+SET date_1 =
 (
     (regexp_match(original_text, '\d{1,2}\/\d{1,2}\/\d{2}'))[1]
         || ' ' ||
-    (regexp_match(original_text, '\/\d{2}\n(\d{4})'))[1] 
+    (regexp_match(original_text, '\/\d{2}\n(\d{4})'))[1]
         ||' US/Eastern'
 )::timestamptz
 RETURNING crime_id, date_1, original_text;
@@ -182,35 +182,35 @@ RETURNING crime_id, date_1, original_text;
 -- Listing 14-13: Updating all crime_reports columns
 
 UPDATE crime_reports
-SET date_1 = 
+SET date_1 =
     (
       (regexp_match(original_text, '\d{1,2}\/\d{1,2}\/\d{2}'))[1]
           || ' ' ||
-      (regexp_match(original_text, '\/\d{2}\n(\d{4})'))[1] 
+      (regexp_match(original_text, '\/\d{2}\n(\d{4})'))[1]
           ||' US/Eastern'
     )::timestamptz,
-             
-    date_2 = 
-    CASE 
+
+    date_2 =
+    CASE
     -- if there is no second date but there is a second hour
         WHEN (SELECT regexp_match(original_text, '-(\d{1,2}\/\d{1,2}\/\d{2})') IS NULL)
                      AND (SELECT regexp_match(original_text, '\/\d{2}\n\d{4}-(\d{4})') IS NOT NULL)
-        THEN 
+        THEN
           ((regexp_match(original_text, '\d{1,2}\/\d{1,2}\/\d{2}'))[1]
               || ' ' ||
-          (regexp_match(original_text, '\/\d{2}\n\d{4}-(\d{4})'))[1] 
+          (regexp_match(original_text, '\/\d{2}\n\d{4}-(\d{4})'))[1]
               ||' US/Eastern'
-          )::timestamptz 
+          )::timestamptz
 
     -- if there is both a second date and second hour
         WHEN (SELECT regexp_match(original_text, '-(\d{1,2}\/\d{1,2}\/\d{2})') IS NOT NULL)
               AND (SELECT regexp_match(original_text, '\/\d{2}\n\d{4}-(\d{4})') IS NOT NULL)
-        THEN 
+        THEN
           ((regexp_match(original_text, '-(\d{1,2}\/\d{1,2}\/\d{2})'))[1]
               || ' ' ||
-          (regexp_match(original_text, '\/\d{2}\n\d{4}-(\d{4})'))[1] 
+          (regexp_match(original_text, '\/\d{2}\n\d{4}-(\d{4})'))[1]
               ||' US/Eastern'
-          )::timestamptz 
+          )::timestamptz
     END,
     street = (regexp_match(original_text, 'hrs.\n(\d+ .+(?:Sq.|Plz.|Dr.|Ter.|Rd.))'))[1],
     city = (regexp_match(original_text,
@@ -253,7 +253,7 @@ SELECT to_tsquery('english', 'walking & sitting');
 SELECT to_tsvector('english', 'I am walking across the sitting room') @@
        to_tsquery('english', 'walking & sitting');
 
-SELECT to_tsvector('english', 'I am walking across the sitting room') @@ 
+SELECT to_tsvector('english', 'I am walking across the sitting room') @@
        to_tsquery('english', 'walking & running');
 
 -- Listing 14-18: Creating and filling the president_speeches table
@@ -329,7 +329,7 @@ ORDER BY speech_date;
 
 SELECT president,
        speech_date,
-       ts_headline(speech_text, 
+       ts_headline(speech_text,
                    to_tsquery('english', 'military <-> defense'),
                    'StartSel = <,
                     StopSel = >,
@@ -337,14 +337,14 @@ SELECT president,
                     MaxWords=7,
                     MaxFragments=1')
 FROM president_speeches
-WHERE search_speech_text @@ 
+WHERE search_speech_text @@
       to_tsquery('english', 'military <-> defense')
 ORDER BY speech_date;
 
 -- Bonus: Example with a distance of 2:
 SELECT president,
        speech_date,
-       ts_headline(speech_text, 
+       ts_headline(speech_text,
                    to_tsquery('english', 'military <2> defense'),
                    'StartSel = <,
                     StopSel = >,
@@ -352,7 +352,7 @@ SELECT president,
                     MaxWords=7,
                     MaxFragments=2')
 FROM president_speeches
-WHERE search_speech_text @@ 
+WHERE search_speech_text @@
       to_tsquery('english', 'military <2> defense')
 ORDER BY speech_date;
 
@@ -364,7 +364,7 @@ SELECT president,
                to_tsquery('english', 'war & security & threat & enemy'))
                AS score
 FROM president_speeches
-WHERE search_speech_text @@ 
+WHERE search_speech_text @@
       to_tsquery('english', 'war & security & threat & enemy')
 ORDER BY score DESC
 LIMIT 5;
@@ -374,12 +374,10 @@ LIMIT 5;
 SELECT president,
        speech_date,
        ts_rank(search_speech_text,
-               to_tsquery('english', 'war & security & threat & enemy'), 2)::numeric 
+               to_tsquery('english', 'war & security & threat & enemy'), 2)::numeric
                AS score
 FROM president_speeches
-WHERE search_speech_text @@ 
+WHERE search_speech_text @@
       to_tsquery('english', 'war & security & threat & enemy')
 ORDER BY score DESC
 LIMIT 5;
-
-

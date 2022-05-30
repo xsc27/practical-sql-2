@@ -108,7 +108,7 @@ ALTER TABLE farmers_markets ADD COLUMN geog_point geography(POINT,4326);
 
 -- Now fill that column with the lat/long
 UPDATE farmers_markets
-SET geog_point = 
+SET geog_point =
      ST_SetSRID(
                ST_MakePoint(longitude,latitude)::geography,4326
                );
@@ -220,10 +220,10 @@ WHERE ST_Within(
 SELECT sum(c.pop_est_2019) AS pop_est_2019
 FROM us_counties_2019_shp sh JOIN us_counties_pop_est_2019 c
     ON sh.statefp = c.state_fips AND sh.countyfp = c.county_fips
-WHERE ST_DWithin(sh.geom::geography, 
+WHERE ST_DWithin(sh.geom::geography,
           ST_GeogFromText('SRID=4269;POINT(-96.699656 40.811567)'),
           80467);
-          
+
 -- Note: You can speed up the above query by creating a functional index
 -- that covers the casting of the geom column to a geography type.
 CREATE INDEX us_counties_2019_shp_geog_idx ON us_counties_2019_shp USING GIST (CAST(geom AS geography));
@@ -236,7 +236,7 @@ SELECT sh.name,
        ST_Transform(sh.geom, 4326) AS geom
 FROM us_counties_2019_shp sh JOIN us_counties_pop_est_2019 c
     ON sh.statefp = c.state_fips AND sh.countyfp = c.county_fips
-WHERE ST_DWithin(sh.geom::geography, 
+WHERE ST_DWithin(sh.geom::geography,
           ST_GeogFromText('SRID=4269;POINT(-96.699656 40.811567)'),
           80467);
 
@@ -285,7 +285,7 @@ SELECT water.fullname AS waterway,
        roads.fullname AS road
 FROM santafe_linearwater_2019 water JOIN santafe_roads_2019 roads
     ON ST_Intersects(water.geom, roads.geom)
-WHERE water.fullname = 'Santa Fe Riv' 
+WHERE water.fullname = 'Santa Fe Riv'
       AND roads.fullname IS NOT NULL
 ORDER BY roads.fullname;
 
@@ -300,4 +300,3 @@ FROM santafe_linearwater_2019 water JOIN santafe_roads_2019 roads
 WHERE water.fullname = 'Santa Fe Riv'
       AND roads.fullname IS NOT NULL
 ORDER BY roads.fullname;
-

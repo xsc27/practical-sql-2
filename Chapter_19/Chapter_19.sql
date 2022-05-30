@@ -19,7 +19,7 @@ SELECT pg_size_pretty(
            pg_total_relation_size('vacuum_test')
        );
 
--- optional: Determine database size   
+-- optional: Determine database size
 SELECT pg_size_pretty(
            pg_database_size('analysis')
        );
@@ -75,7 +75,7 @@ VACUUM FULL vacuum_test;
 SELECT pg_size_pretty(
            pg_table_size('vacuum_test')
        );
-       
+
 -- SETTINGS
 
 -- Listing 19-8: Showing the location of postgresql.conf
@@ -93,7 +93,7 @@ SHOW data_directory;
 -- Windows: pg_ctl reload -D "C:\path\to\data\directory\"
 
 -- Reload settings using pg_reload_conf():
--- SELECT pg_reload_conf(); 
+-- SELECT pg_reload_conf();
 
 
 -- BACKUP AND RESTORE

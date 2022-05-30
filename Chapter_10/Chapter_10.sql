@@ -42,7 +42,7 @@ HAVING count(*) > 1
 ORDER BY company, street, city, st;
 
 -- Listing 10-3: Grouping and counting states
-SELECT st, 
+SELECT st,
        count(*) AS st_count
 FROM meat_poultry_egg_establishments
 GROUP BY st
@@ -88,7 +88,7 @@ CREATE TABLE meat_poultry_egg_establishments_backup AS
 SELECT * FROM meat_poultry_egg_establishments;
 
 -- Check number of records:
-SELECT 
+SELECT
     (SELECT count(*) FROM meat_poultry_egg_establishments) AS original,
     (SELECT count(*) FROM meat_poultry_egg_establishments_backup) AS backup;
 
@@ -132,7 +132,7 @@ SET st = st_copy;
 UPDATE meat_poultry_egg_establishments original
 SET st = backup.st
 FROM meat_poultry_egg_establishments_backup backup
-WHERE original.establishment_number = backup.establishment_number; 
+WHERE original.establishment_number = backup.establishment_number;
 
 -- Listing 10-13: Creating and filling the company_standard column
 
@@ -187,7 +187,7 @@ UPDATE meat_poultry_egg_establishments establishments
 SET inspection_deadline = '2022-12-01 00:00 EST'
 WHERE EXISTS (SELECT state_regions.region
               FROM state_regions
-              WHERE establishments.st = state_regions.st 
+              WHERE establishments.st = state_regions.st
                     AND state_regions.region = 'New England');
 
 -- Listing 10-20: Viewing updated inspection_deadline values
@@ -252,11 +252,9 @@ FROM meat_poultry_egg_establishments;
 
 -- Listing 10-26: Swapping table names using ALTER TABLE
 
-ALTER TABLE meat_poultry_egg_establishments 
+ALTER TABLE meat_poultry_egg_establishments
     RENAME TO meat_poultry_egg_establishments_temp;
-ALTER TABLE meat_poultry_egg_establishments_backup 
+ALTER TABLE meat_poultry_egg_establishments_backup
     RENAME TO meat_poultry_egg_establishments;
-ALTER TABLE meat_poultry_egg_establishments_temp 
+ALTER TABLE meat_poultry_egg_establishments_temp
     RENAME TO meat_poultry_egg_establishments_backup;
-
-

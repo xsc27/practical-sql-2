@@ -337,4 +337,3 @@ WHERE pls18.visits >= 0
 GROUP BY pls18.stabr
 HAVING sum(pls18.visits) > 50000000
 ORDER BY chg_2018_17 DESC;
-

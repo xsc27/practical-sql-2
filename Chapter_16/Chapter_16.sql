@@ -54,7 +54,7 @@ SELECT * FROM films;
 
 -- JSON AND JSONB EXTRACTION OPERATORS
 
--- Listing 16-3: Retrieving a JSON key value with field extraction operators 
+-- Listing 16-3: Retrieving a JSON key value with field extraction operators
 
 -- Returns the key value as a JSON data type
 SELECT id, film -> 'title' AS title
@@ -71,7 +71,7 @@ SELECT id, film -> 'genre' AS genre
 FROM films
 ORDER BY id;
 
--- Listing 16-4: Retrieving a JSON array value with element extraction operators 
+-- Listing 16-4: Retrieving a JSON array value with element extraction operators
 
 -- Extracts first element of the JSON array
 -- (array elements are indexed from zero, but negative integers count from the end).
@@ -125,14 +125,14 @@ ORDER BY id;
 SELECT film ->> 'title' AS title,
        film ->> 'year' AS year
 FROM films
-WHERE film @> '{"title": "The Incredibles"}'::jsonb; 
+WHERE film @> '{"title": "The Incredibles"}'::jsonb;
 
 -- Listing 16-8: Demonstrating the <@ containment operator
 
 SELECT film ->> 'title' AS title,
        film ->> 'year' AS year
 FROM films
-WHERE '{"title": "The Incredibles"}'::jsonb <@ film; 
+WHERE '{"title": "The Incredibles"}'::jsonb <@ film;
 
 -- Listing 16-9: Demonstrating existence operators
 
@@ -214,7 +214,7 @@ SELECT * FROM earthquakes;
 -- Listing 16-12: Retrieving the earthquake time
 -- Note that the time is stored in epoch format
 
-SELECT id, earthquake #>> '{properties, time}' AS time 
+SELECT id, earthquake #>> '{properties, time}' AS time
 FROM earthquakes
 ORDER BY id LIMIT 5;
 
@@ -293,14 +293,14 @@ SELECT ST_SetSRID(
 FROM earthquakes
 ORDER BY id;
 
--- Listing 16-19: Converting JSON coordinates to a PostGIS geometry column 
+-- Listing 16-19: Converting JSON coordinates to a PostGIS geometry column
 
--- Add a column of the geography data type 
+-- Add a column of the geography data type
 ALTER TABLE earthquakes ADD COLUMN earthquake_point geography(POINT, 4326);
 
 -- Update the earthquakes table with a Point
 UPDATE earthquakes
-SET earthquake_point = 
+SET earthquake_point =
         ST_SetSRID(
             ST_MakePoint(
                 (earthquake #>> '{geometry, coordinates, 0}')::numeric,
@@ -353,14 +353,14 @@ FROM (
 
 UPDATE films
 SET film = film || '{"studio": "Pixar"}'::jsonb
-WHERE film @> '{"title": "The Incredibles"}'::jsonb; 
+WHERE film @> '{"title": "The Incredibles"}'::jsonb;
 
 UPDATE films
 SET film = film || jsonb_build_object('studio', 'Pixar')
-WHERE film @> '{"title": "The Incredibles"}'::jsonb; 
+WHERE film @> '{"title": "The Incredibles"}'::jsonb;
 
 SELECT film FROM films -- check the updated data
-WHERE film @> '{"title": "The Incredibles"}'::jsonb; 
+WHERE film @> '{"title": "The Incredibles"}'::jsonb;
 
 -- Listing 16-26: Setting an array value at a path
 
@@ -369,22 +369,22 @@ SET film = jsonb_set(film,
                  '{genre}',
                   film #> '{genre}' || '["World War II"]',
                   true)
-WHERE film @> '{"title": "Cinema Paradiso"}'::jsonb; 
+WHERE film @> '{"title": "Cinema Paradiso"}'::jsonb;
 
 SELECT film FROM films -- check the updated data
-WHERE film @> '{"title": "Cinema Paradiso"}'::jsonb; 
+WHERE film @> '{"title": "Cinema Paradiso"}'::jsonb;
 
 -- Listing 16-27: Deleting values from JSON
 
 -- Removes the studio key/value pair from The Incredibles
 UPDATE films
 SET film = film - 'studio'
-WHERE film @> '{"title": "The Incredibles"}'::jsonb; 
+WHERE film @> '{"title": "The Incredibles"}'::jsonb;
 
 -- Removes the third element in the genre array of Cinema Paradiso
 UPDATE films
 SET film = film #- '{genre, 2}'
-WHERE film @> '{"title": "Cinema Paradiso"}'::jsonb; 
+WHERE film @> '{"title": "Cinema Paradiso"}'::jsonb;
 
 
 -- JSON PROCESSING FUNCTIONS
@@ -407,7 +407,7 @@ ORDER BY id;
 
 -- Listing 16-30: Returning key values from each item in an array
 
-SELECT id, 
+SELECT id,
        jsonb_array_elements(film -> 'characters')
 FROM films
 ORDER BY id;
@@ -417,7 +417,7 @@ WITH characters (id, json) AS (
            jsonb_array_elements(film -> 'characters')
     FROM films
 )
-SELECT id, 
+SELECT id,
        json ->> 'name' AS name,
        json ->> 'actor' AS actor
 FROM characters
